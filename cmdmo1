@@ -10504,14 +10504,19 @@ addcmd('tweengotomodel',{'tgotomodel','ttomodel'},function(args, speaker)
             
             wait(gotopartDelay)
             
-            -- Đặt thời gian tweening thành 5 giây (thay đổi theo nhu cầu)
-            local tweenTime = 15
+            -- Đặt thời gian tweening thành 30 giây và sử dụng hiệu ứng chuyển động mượt mà
+            local tweenTime = 30
+            local tweenInfo = TweenInfo.new(tweenTime, Enum.EasingStyle.Custom)
+            tweenInfo.Points = {
+                {Time = 0, Value = 0},
+                {Time = 0.5, Value = 0.5},
+                {Time = 1, Value = 1},
+            }
             
-            TweenService:Create(getRoot(speaker.Character), TweenInfo.new(tweenTime, Enum.EasingStyle.Linear), {CFrame = v:GetModelCFrame()}):Play()
+            TweenService:Create(getRoot(speaker.Character), tweenInfo, {CFrame = v:GetModelCFrame()}):Play()
         end
     end
 end)
-
 addcmd('gotopartdelay',{},function(args, speaker)
 	local gtpDelay = args[1] or 0.1
 	if isNumber(gtpDelay) then
